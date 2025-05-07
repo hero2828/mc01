@@ -27,7 +27,7 @@ jobs:
         run: |
           npm install
           npm run build
-        working-directory: ./portals-and-masks # 如果你的项目在car-physics子目录
+        working-directory: . # 如果你的项目在car-physics子目录
 
       - name: 部署到gh-pages分支
         uses: peaceiris/actions-gh-pages@v4
