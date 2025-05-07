@@ -12,7 +12,7 @@ function initMeScroll(mescrollId, options) {
     up: {
       htmlLoading: '<p class="upwarp-progress mescroll-rotate"></p>',
       toTop: {
-        src: "/res/mescroll-totop.png"
+        src: "/mc01/res/mescroll-totop.png"
       }
     }
   }
@@ -32,7 +32,7 @@ var mescroll = initMeScroll("mescroll", {
     isBounce: false,
     callback: upCallback,
     toTop: {
-      src: "/res/mescroll-totop.png"
+      src: "/mc01/res/mescroll-totop.png"
     }
   }
 });
