@@ -15,8 +15,6 @@ jobs:
       contents: write # 确保有写权限
 
     steps:
-      - name: 进入目录
-        
       - name: 克隆仓库
         uses: actions/checkout@v4
         with:
