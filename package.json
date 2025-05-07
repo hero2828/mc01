@@ -1,0 +1,16 @@
+{
+  "name": "v1",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "mescroll.js": "^1.4.2",
+    "sass-embedded": "^1.87.0",
+    "vite": "^6.3.5"
+  }
+}

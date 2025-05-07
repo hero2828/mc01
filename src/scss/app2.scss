@@ -1,0 +1,191 @@
+$cardWidth: (
+  375-30)/2;
+$gap: 10;
+
+@function rem($px) {
+  @return $px /16 * 1rem;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+img {
+  width: 100%;
+  vertical-align: bottom;
+}
+
+html {
+  // 1rem=32px
+  font-size: clamp(16px, calc(100vw / 23.4375), 32px
+  );
+}
+
+
+
+.card {
+  width: rem($cardWidth);
+  font-size: rem(16);
+  background: #fff;
+  margin-bottom: rem(10);
+
+  &-content {
+    position: relative;
+  }
+
+  &-img {
+    display: block;
+    width: 100%;
+    border-radius: rem(4) rem(4) 0 0;
+  }
+
+  &-play {
+    position: absolute;
+    top: rem(10);
+    right: rem(10);
+    display: inline-flex;
+    align-items: center;
+    width: rem(16);
+    height: rem(16);
+    background-image: url("/res/play.png");
+    background-size: 100% 100%;
+  }
+
+  &-video {
+    display: inline-block;
+    width: 0;
+    height: 0;
+  }
+
+  // 最多 2 行
+  &-title {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: rem(16);
+    margin: rem(10) 0;
+  }
+
+  &-plot {
+    color: #777;
+    font-size: rem(14);
+    margin-bottom: rem(10);
+  }
+
+  &-user {
+    display: flex;
+    gap: rem(10);
+    font-size: rem(12);
+    align-items: center;
+    position: relative;
+
+    &-avatar {
+      width: rem(32);
+      height: rem(32);
+      border-radius: rem(4);
+    }
+
+    &-name {
+      font-size: rem(14);
+      color: #333;
+    }
+  }
+
+  &-love {
+    position: absolute;
+    right: rem(10);
+    display: inline-flex;
+    align-items: center;
+
+    &-icon {
+      width: rem(16);
+      height: rem(16);
+      margin-right: rem(5);
+      background-image: url("/res/like.png");
+      background-size: 100% 100%;
+    }
+  }
+}
+
+.news-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: rem(10);
+  padding: rem(10);
+  position: relative;
+  margin: 0 auto;
+  width: rem(375);
+}
+
+
+/*列表*/
+.mescroll {
+  position: fixed;
+  top: 0px;
+  bottom: 11px;
+  height: auto;
+  width: 100%;
+}
+
+/*回到顶部按钮*/
+.mescroll-totop {
+  bottom: 70px;
+}
+
+/*下拉刷新回调的提示*/
+.download-tip {
+  z-index: 9900;
+  position: fixed;
+  top: -24px;
+  left: 0;
+  width: 100%;
+  height: 24px;
+  line-height: 24px;
+  font-size: 12px;
+  text-align: center;
+  background-color: rgba(80, 175, 85, .7);
+  color: white;
+  -webkit-transition: top 300ms;
+  transition: top 300ms;
+}
+
+
+.news-list .new-content {
+  font-size: 14px;
+  margin-top: 6px;
+  margin-left: 10px;
+  color: #666;
+}
+
+.mescroll-downwarp .downwarp-progress,
+.mescroll-upwarp .upwarp-progress {
+  width: 24px !important;
+  height: 24px !important;
+  border: none;
+  margin: auto;
+  background-image: url(/res/mescroll-progress.jpg);
+  background-size: contain;
+  border: none !important;
+}
+
+.mescroll-rotate {
+  animation: animScale 0.6s linear, mescrollRotate 0.6s linear infinite;
+}
+
+
+
+@keyframes animScale {
+  0% {
+    transform: scale(1, 1) rotate(0deg)
+  }
+
+  50% {
+    transform: scale(1.2, 1.2) rotate(180deg)
+  }
+}
