@@ -1,38 +1,35 @@
-name: 打包并输出到gh-pages分支进行预览
+# .github/workflows/deploy.yml
+
+name: Deploy to GitHub Pages
 
 on:
+  # 触发工作流的事件类型
   push:
     branches:
-      - main
-  workflow_dispatch: # 允许手动触发该工作流
+      - main  # 当推送到 main 分支时触发
 
 jobs:
-  build:
-    name: 打包并部署
+  deploy:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
+
     steps:
-      - name: 克隆仓库
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0 
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-      - name: 指定Node.js版本
-        uses: actions/setup-node@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
         with:
-          node-version: 20
+          node-version: '18'  # 根据你的项目需求选择合适的 Node.js 版本
 
-      - name: 安装依赖并构建
-        run: |
-          npm install
-          npm run build
-        working-directory: ./ # 如果你的项目在car-physics子目录
+      - name: Install dependencies
+        run: npm install
 
-      - name: 部署到gh-pages分支
-        uses: peaceiris/actions-gh-pages@v4
+      - name: Build project
+        run: npm run build
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@4.1.5
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build # 确保路径正确
-          publish_branch: gh-pages
-          full_commit_message: ${{ github.event.head_commit.message }}
+          branch: gh-pages  # 部署到 gh-pages 分支
+          folder: dist      # 构建后的静态文件目录
+          clean: true       # 清理 gh-pages 分支中的旧文件
