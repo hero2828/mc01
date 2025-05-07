@@ -1,35 +1,42 @@
-# .github/workflows/deploy.yml
+name: 打包并输出到preview分支进行预览
 
-name: Deploy to GitHub Pages
-
+# 检测只有主分支的push操作会触发该工作流
 on:
-  # 触发工作流的事件类型
   push:
     branches:
-      - main  # 当推送到 main 分支时触发
+      - main
+  workflow_dispatch: # 允许手动触发该工作流
 
 jobs:
-  deploy:
+  build:
+    name: 打包
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # 确保有写权限
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
+      - name: 进入目录
+        
+      - name: 克隆仓库
+        uses: actions/checkout@v4
         with:
-          node-version: '18'  # 根据你的项目需求选择合适的 Node.js 版本
+          ref: main # 指定主分支
 
-      - name: Install dependencies
+      - name: 指定Node.js版本
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: 安装依赖
         run: npm install
 
-      - name: Build project
-        run: npm run build
+      - name: 打包
+        run: npm build --mode github-preview
 
-      - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@4.1.5
+      - name: 部署到preview分支
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          branch: gh-pages  # 部署到 gh-pages 分支
-          folder: dist      # 构建后的静态文件目录
-          clean: true       # 清理 gh-pages 分支中的旧文件
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          publish_branch: preview
+          full_commit_message: ${{ github.event.head_commit.message }}
