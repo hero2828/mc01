@@ -25,9 +25,8 @@ jobs:
 
       - name: 安装依赖并构建
         run: |
-          npm install -g pnpm
-          pnpm install
-          pnpm run build
+          npm install
+          npm run build
         working-directory: ./portals-and-masks # 如果你的项目在car-physics子目录
 
       - name: 部署到gh-pages分支
